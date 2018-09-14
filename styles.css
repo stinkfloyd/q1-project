@@ -7,9 +7,6 @@ body {
   background-color: LightGrey;
 }
 
-select {
-  width: 15em;
-}
 
 #content {
   margin: 5em;
