@@ -10,8 +10,55 @@ document.addEventListener("DOMContentLoaded", () => {
   //     .catch((error) => {
   //       console.log(error);
   //     });
+  let heroes = [`Druid`, `Hunter`, `Mage`, `Paladin`, `Priest`, `Rogue`, `Shaman`, `Warlock`, `Warrior`]
+  let content = document.getElementById(`content`)
+  let searchButton = document.getElementById(`searchButton`)
+  let cardBackButton = document.getElementById(`cardBackButton`)
+  let randomButton = document.getElementById(`randomButton`)
 
-  function createForm() {
-    
-  }
+
+  searchButton.addEventListener(`click`, (event) => {
+    console.log(`Search Button Clicked`);
+    buildSearch()
   })
+  cardBackButton.addEventListener(`click`, (event) => {
+    console.log(`Card Back Button Clicked`)
+  })
+  randomButton.addEventListener(`click`, (event) => {
+    console.log(`Random Button Clicked`);
+  })
+
+  function clearContent() {
+    while (content.hasChildNodes()) {
+      content.removeChild(content.childNodes[0])
+    }
+  }
+
+  function buildSearch() {
+    clearContent()
+  }
+
+  function createRow() {
+    let row = document.createElement(`div`)
+    row.classList.add(`row`)
+    return row
+  }
+
+  function createCol(howManyCols) {
+    let col = document.createElement(`div`)
+    col.classList.add(`col-sm-${howManyCols}`)
+    return col
+  }
+
+  function createSelect() {
+    let select = document.createElement(`select`)
+    select.id = `select`
+    for (let hero of heroes) {
+      let option = document.createElement(`option`)
+      option.value = hero
+      option.innerText = hero
+      select.appendChild(option)
+    }
+    return select
+  }
+})

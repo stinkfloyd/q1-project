@@ -2,11 +2,37 @@
   font-family: warcraftFont;
   src: url(LifeCraft_Font.ttf);
 }
-/* body {
-  background-image: url(bodyBackground.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
+
+body {
+  background-color: LightGrey;
+}
+
+select {
+  width: 15em;
+}
+
+#content {
+  margin: 5em;
+}
+
+.loadText{
+  font-size: 52px;
+  text-align: center;
+  padding-top: 2em;
+  font-family: warcraftFont;
+}
+
+.secondLine {
+  font-size: 45px;
+  padding-top: none;
+}
+
+.sword {
+  font-size: 120px;
+  text-align: center;
+  font-family: warcraftFont;
+}
+
 .titleRow {
   text-align: center;
   border: 2px solid black;
@@ -14,7 +40,7 @@
   background-image: url(titleBackground.png);
   background-repeat: no-repeat;
   background-size: cover;
-  color: white;
+  color: gold;
 }
 
  .titleRow h1 {
@@ -25,6 +51,7 @@
 
 .navButtons button {
   text-align: center;
+  background-color: gold;
   font-family: warcraftFont;
   font-size: 20px;
 }
