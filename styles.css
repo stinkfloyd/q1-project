@@ -6,10 +6,13 @@
 .titleRow {
   text-align: center;
   border: 2px solid black;
-  margin: 2em;
 }
 
  .titleRow h1 {
    font-family: warcraftFont;
    font-size: 75px;
  }
+
+.navButtons button {
+  text-align: center;
+}
