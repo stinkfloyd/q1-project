@@ -1,0 +1,15 @@
+@font-face {
+  font-family: warcraftFont;
+  src: url(LifeCraft_Font.ttf);
+}
+
+.titleRow {
+  text-align: center;
+  border: 2px solid black;
+  margin: 2em;
+}
+
+ .titleRow h1 {
+   font-family: warcraftFont;
+   font-size: 75px;
+ }
