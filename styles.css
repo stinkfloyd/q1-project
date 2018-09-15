@@ -4,9 +4,12 @@
 }
 
 body {
-  background-color: LightGrey;
+  background-color: lightGrey;
 }
 
+select {
+  font-size: 25px;
+}
 
 #content {
   margin: 5em;
@@ -21,6 +24,8 @@ body {
   text-align: center;
   padding-top: 2em;
   font-family: warcraftFont;
+  color: gold;
+  text-shadow: 5px 5px 5px black;
 }
 
 .secondLine {
@@ -29,14 +34,16 @@ body {
 }
 
 .sword {
-  font-size: 120px;
+  font-size: 175px;
   text-align: center;
   font-family: warcraftFont;
+  color: gold;
+  text-shadow: 5px 5px 5px black;
 }
 
 .titleRow {
   text-align: center;
-  border: 2px solid black;
+  border: 5px solid black;
   margin-top: 2em;
   background-image: url(titleBackground.png);
   background-repeat: no-repeat;
@@ -47,7 +54,7 @@ body {
  .titleRow h1 {
    font-family: warcraftFont;
    font-size: 75px;
-   text-shadow: 5px 5px black;
+   text-shadow: 5px 5px 5px black;
  }
 
 .navButtons button {
@@ -58,5 +65,28 @@ body {
 }
 
 .card {
-  border: 2px solid black;
+  border: 5px solid gold;
+  padding-top: 5px;
+  padding: 5px;
+  font-family: warcraftFont;
+  margin: 5px;
+  color: gold;
+  background-color: black;
+}
+img {
+  width: 30%;
+  height: 30%;
+}
+
+.card h4{
+  font-size: 60px;
+}
+
+footer {
+  font-size: 25px;
+}
+
+.card-text {
+  font-size: 40px;
+  font-weight: lighter;
 }

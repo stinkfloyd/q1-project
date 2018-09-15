@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // let name = `leeroy`
 
   // let heroes = [`Druid`, `Hunter`, `Mage`, `Paladin`, `Priest`, `Rogue`, `Shaman`, `Warlock`, `Warrior`]
-  let options = [`Class`, `Attack Strength`, `Mana Cost`, `Keyword`]
+  let options = [`Name`, `Attack Strength`, `Mana Cost`, `Keyword`]
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
   let cardBackButton = document.getElementById(`cardBackButton`)
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(response);
         let row = createRow()
         for (let i = 0; i < response.data.length; i++) {
-          let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`)
+          let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
           if (i !== 0 && i % 4 === 0)
             row = createRow()
           row.appendChild(card)
@@ -50,28 +50,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function createCard(title, flavorText, imgSrc) {
-    let col = createCol(3)
+  function createCard(title, flavorText, imgSrc, howToGet) {
+    let col = createCol(12)
     let card = document.createElement(`div`)
     card.classList.add(`card`)
     let cardBody = document.createElement(`div`)
     cardBody.classList.add(`card-body`)
-    let cardTitle = document.createElement(`h4`)
-    cardTitle.innerText = title
-    cardTitle.classList.add(`card-title`)
-    cardBody.appendChild(cardTitle)
     let cardImage = document.createElement(`img`)
     cardImage.onerror = () => {
       col.style.display = `none`
       col.classList.add(`remove`)
     }
-    cardImage.classList.add(`card-image-bottom`)
+    cardImage.classList.add(`card-image`)
     cardImage.src = imgSrc
     cardBody.appendChild(cardImage)
+    let cardTitle = document.createElement(`h4`)
+    cardTitle.innerText = title
+    cardTitle.classList.add(`card-title`)
+    cardBody.appendChild(cardTitle)
+
     let cardText = document.createElement(`div`)
     cardText.classList.add(`card-text`)
     cardText.innerText = flavorText
     cardBody.appendChild(cardText)
+    let footer = document.createElement(`footer`)
+    footer.classList.add(`blockquote-footer`)
+    footer.innerText = `How to get: ${howToGet}`
+    cardBody.appendChild(footer)
     card.appendChild(cardBody)
     col.appendChild(card)
     return col
