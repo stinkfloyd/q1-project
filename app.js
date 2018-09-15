@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clearContent()
     buildSearch()
   })
+
   cardBackButton.addEventListener(`click`, (event) => {
     console.log(`Card Back Button Clicked`)
     clearContent()
@@ -24,10 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .then((response) => {
+        console.log(response);
+        let row = createRow()
         for (let i = 0; i < response.data.length; i++) {
-          let image = document.createElement(`img`)
-          image.src = response.data[i].imgAnimated
-          content.appendChild(image)
+          let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`)
+          if (i !== 0 && i % 4 === 0)
+            row = createRow()
+          row.appendChild(card)
+          content.appendChild(row)
         }
       })
       .catch((error) => {
@@ -43,6 +48,38 @@ document.addEventListener("DOMContentLoaded", () => {
     while (content.hasChildNodes()) {
       content.removeChild(content.childNodes[0])
     }
+  }
+
+  function createCard(title, flavorText, imgSrc) {
+    let col = createCol(3)
+    let card = document.createElement(`div`)
+    card.classList.add(`card`)
+    let cardBody = document.createElement(`div`)
+    cardBody.classList.add(`card-body`)
+    let cardTitle = document.createElement(`h4`)
+    cardTitle.innerText = title
+    cardTitle.classList.add(`card-title`)
+    cardBody.appendChild(cardTitle)
+    let cardImage = document.createElement(`img`)
+    cardImage.onerror = () => {
+      col.style.display = `none`
+      col.classList.add(`remove`)
+    }
+    cardImage.classList.add(`card-image-bottom`)
+    cardImage.src = imgSrc
+    cardBody.appendChild(cardImage)
+    let cardText = document.createElement(`div`)
+    cardText.classList.add(`card-text`)
+    cardText.innerText = flavorText
+    cardBody.appendChild(cardText)
+    card.appendChild(cardBody)
+    col.appendChild(card)
+    return col
+
+    // image.src = response.data[i].imgAnimated
+    // image.onerror = () => {
+    //   image.style.display = `none`
+    // }
   }
 
   function buildSearch() {

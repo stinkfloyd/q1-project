@@ -12,6 +12,10 @@ body {
   margin: 5em;
 }
 
+#inputField {
+  margin: 2em;
+}
+
 .loadText{
   font-size: 52px;
   text-align: center;
@@ -51,4 +55,8 @@ body {
   background-color: gold;
   font-family: warcraftFont;
   font-size: 20px;
+}
+
+.card {
+  border: 2px solid black;
 }
