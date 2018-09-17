@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: lightGrey;
+  background-color: #222222;
 }
 
 select {
@@ -62,24 +62,32 @@ select {
   background-color: gold;
   font-family: warcraftFont;
   font-size: 20px;
+  color: black;
 }
 
 .card {
-  border: 5px solid gold;
+  border: 5px solid black;
   padding-top: 5px;
   padding: 5px;
   font-family: warcraftFont;
   margin: 5px;
   color: gold;
-  background-color: black;
+  background: url(cardBackground.jpg);
+  text-shadow: 2px 2px 2px #222222;
 }
+
 img {
   width: 30%;
   height: 30%;
 }
 
 .card h4{
-  font-size: 60px;
+  font-size: 75px;
+}
+
+label {
+  color: white;
+  margin-right: 5px;
 }
 
 footer {

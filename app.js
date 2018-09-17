@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
   // let name = `leeroy`
 
-  // let heroes = [`Druid`, `Hunter`, `Mage`, `Paladin`, `Priest`, `Rogue`, `Shaman`, `Warlock`, `Warrior`]
-  let options = [`Name`, `Attack Strength`, `Mana Cost`, `Keyword`]
+  let classes = [`Druid`, `Hunter`, `Mage`, `Paladin`, `Priest`, `Rogue`, `Shaman`, `Warlock`, `Warrior`]
+  let options = [`Name`, `Attack Strength`, `Mana Cost`, `Race`, `Health`]
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
   let cardBackButton = document.getElementById(`cardBackButton`)
@@ -107,15 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return col
   }
 
-  function createHeroSelect() {
+  function createClassesSelect() {
     let select = document.createElement(`select`)
     select.id = `heroSelect`
     let option = document.createElement(`option`)
     option.disabled = true
     option.selected = true
-    option.innerText = `Please select a Hero`
+    option.innerText = `Please select a Class`
     select.appendChild(option)
-    for (let hero of heroes) {
+    for (let hero of classes) {
       option = document.createElement(`option`)
       option.value = hero
       option.innerText = hero
@@ -158,6 +158,23 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener(`submit`, submitEvent)
     row.appendChild(form)
     content.appendChild(row)
+    row = createRow()
+    let label = document.createElement(`label`)
+    label.innerText = `Advanced Options?`
+    row.appendChild(label)
+    let checkbox = document.createElement(`input`)
+    checkbox.type = `checkbox`
+    checkbox.addEventListener("change", checkboxChanged)
+    row.appendChild(checkbox)
+    content.appendChild(row)
+  }
+
+  function checkboxChanged(event) {
+    createAdvOptions()
+  }
+
+  function createAdvOptions() {
+
   }
 
   function selectChange(event) {
