@@ -16,10 +16,11 @@ select {
 }
 
 #inputField {
-  margin: 2em;
+  margin: 1em;
+  width: 25em;
 }
 
-.loadText{
+.loadText {
   font-size: 52px;
   text-align: center;
   padding-top: 2em;
@@ -51,11 +52,15 @@ select {
   color: gold;
 }
 
- .titleRow h1 {
-   font-family: warcraftFont;
-   font-size: 75px;
-   text-shadow: 5px 5px 5px black;
- }
+a {
+  color: white;
+}
+
+.titleRow h1 {
+  font-family: warcraftFont;
+  font-size: 75px;
+  text-shadow: 5px 5px 5px black;
+}
 
 .navButtons button {
   text-align: center;
@@ -81,7 +86,7 @@ img {
   height: 30%;
 }
 
-.card h4{
+.card h4 {
   font-size: 75px;
 }
 

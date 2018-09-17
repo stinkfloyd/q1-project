@@ -1,23 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
-  // let name = `leeroy`
 
-  let classes = [`Druid`, `Hunter`, `Mage`, `Paladin`, `Priest`, `Rogue`, `Shaman`, `Warlock`, `Warrior`]
   let options = [`Name`, `Attack Strength`, `Mana Cost`, `Race`, `Health`]
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
   let cardBackButton = document.getElementById(`cardBackButton`)
-  let randomButton = document.getElementById(`randomButton`)
-
 
   searchButton.addEventListener(`click`, (event) => {
-    console.log(`Search Button Clicked`);
     clearContent()
     buildSearch()
   })
 
   cardBackButton.addEventListener(`click`, (event) => {
-    console.log(`Card Back Button Clicked`)
     clearContent()
     axios.get('https://omgvamp-hearthstone-v1.p.mashape.com/cardbacks', {
         headers: {
@@ -25,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .then((response) => {
-        console.log(response);
         let row = createRow()
         for (let i = 0; i < response.data.length; i++) {
           let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
@@ -35,19 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
           content.appendChild(row)
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   })
-  randomButton.addEventListener(`click`, (event) => {
-    console.log(`Random Button Clicked`);
-    clearContent()
-  })
+
 
   function clearContent() {
     while (content.hasChildNodes()) {
       content.removeChild(content.childNodes[0])
     }
+  }
+
+  function createRow() {
+    let row = document.createElement(`div`)
+    row.classList.add(`row`)
+    return row
+  }
+
+  function createCol(howManyCols) {
+    let col = document.createElement(`div`)
+    col.classList.add(`col-sm-${howManyCols}`)
+    content.appendChild(col)
+    return col
   }
 
   function createCard(title, flavorText, imgSrc, howToGet) {
@@ -79,12 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
     cardBody.appendChild(footer)
     card.appendChild(cardBody)
     col.appendChild(card)
+    let link = document.createElement(`a`)
+    link.href = `#top`
+    link.innerText = `Back to Top`
+    col.appendChild(link)
     return col
-
-    // image.src = response.data[i].imgAnimated
-    // image.onerror = () => {
-    //   image.style.display = `none`
-    // }
   }
 
   function buildSearch() {
@@ -92,36 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectCol = createCol(12)
     let optionSelect = createOptionSelect()
     selectCol.appendChild(optionSelect)
-  }
-
-  function createRow() {
-    let row = document.createElement(`div`)
-    row.classList.add(`row`)
-    return row
-  }
-
-  function createCol(howManyCols) {
-    let col = document.createElement(`div`)
-    col.classList.add(`col-sm-${howManyCols}`)
-    content.appendChild(col)
-    return col
-  }
-
-  function createClassesSelect() {
-    let select = document.createElement(`select`)
-    select.id = `heroSelect`
-    let option = document.createElement(`option`)
-    option.disabled = true
-    option.selected = true
-    option.innerText = `Please select a Class`
-    select.appendChild(option)
-    for (let hero of classes) {
-      option = document.createElement(`option`)
-      option.value = hero
-      option.innerText = hero
-      select.appendChild(option)
-    }
-    return select
   }
 
   function createOptionSelect() {
@@ -138,18 +108,46 @@ document.addEventListener("DOMContentLoaded", () => {
       option.innerText = choice
       select.appendChild(option)
     }
-    select.addEventListener("change", selectChange)
+    select.addEventListener(`change`, (event) => {
+      createInputField(select.options[select.selectedIndex].value)
+    })
     return select
   }
 
-  function createInputField() {
+  function createInputField(value) {
     if (document.getElementById(`form`))
       removeElement(`form`)
+    if (document.getElementById(`advOptionsLabel`))
+      removeElement(`advOptionsLabel`)
+    if (document.getElementById(`advOptionsBox`))
+      removeElement(`advOptionsBox`)
     let row = createRow()
     let form = document.createElement(`form`)
     form.id = `form`
     let input = document.createElement(`input`)
     input.id = `inputField`
+    switch (value) {
+      case `Name`:
+        input.placeholder = `Enter Card Name`
+        break;
+      case `Attack Strength`:
+        input.placeholder = `Enter (#) Attack Strength`
+        input.type = `number`
+        break;
+      case `Mana Cost`:
+        input.placeholder = `Enter (#) Mana Cost`
+        input.type = `number`
+        break;
+      case `Race`:
+        input.placeholder = `Enter Minion Type`
+        break;
+      case `Health`:
+        input.placeholder = `Enter (#) Health`
+        input.type = `number`
+        break;
+      default:
+        input.type = `text`
+    }
     input.autofocus = true
     form.appendChild(input)
     let submitButton = document.createElement(`input`)
@@ -158,23 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener(`submit`, submitEvent)
     row.appendChild(form)
     content.appendChild(row)
-    row = createRow()
-    let label = document.createElement(`label`)
-    label.innerText = `Advanced Options?`
-    row.appendChild(label)
-    let checkbox = document.createElement(`input`)
-    checkbox.type = `checkbox`
-    checkbox.addEventListener("change", checkboxChanged)
-    row.appendChild(checkbox)
-    content.appendChild(row)
-  }
-
-  function checkboxChanged(event) {
-    createAdvOptions()
-  }
-
-  function createAdvOptions() {
-
   }
 
   function selectChange(event) {
@@ -183,9 +164,141 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function submitEvent(event) {
     event.preventDefault()
-    console.log(`Submit Event Occured`);
     // need to add get call and data processing
-    buildSearch()
+    let advOptions = document.getElementById(``)
+    let select = document.getElementById(`optionSelect`)
+    let input = document.getElementById(`inputField`)
+    switch (select.options[select.selectedIndex].value) {
+      case `Name`:
+        axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/${input.value}?collectible=1`, {
+            headers: {
+              "X-Mashape-Key": `${mashapeKey}`
+            }
+          })
+          .then((response) => {
+            clearContent()
+            createSearchAgainButton()
+            let row = createRow()
+            for (let i = 0; i < response.data.length; i++) {
+              let card = createCard(`${response.data[i].name}`, `${response.data[i].flavor}`, `${response.data[i].img}`, `${response.data[i].cardSet}`)
+              row.appendChild(card)
+              content.appendChild(row)
+            }
+            createSearchAgainButton()
+          })
+          .catch((error) => {
+            clearContent()
+            createSearchAgainButton()
+          });
+        break;
+      case `Attack Strength`:
+        axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards?attack=${input.value}&collectible=1`, {
+            headers: {
+              "X-Mashape-Key": `${mashapeKey}`
+            }
+          })
+          .then((response) => {
+            clearContent()
+            createSearchAgainButton()
+            let row = createRow()
+            for (let season in response.data) {
+              for (let i = 0; i < response.data[season].length; i++) {
+                let card = createCard(`${response.data[season][i].name}`, `${response.data[season][i].flavor}`, `${response.data[season][i].img}`, `${response.data[season][i].cardSet}`)
+                row.appendChild(card)
+                content.appendChild(row)
+              }
+            }
+            createSearchAgainButton()
+          })
+          .catch((error) => {
+            clearContent()
+            createSearchAgainButton()
+          });
+        break;
+      case `Mana Cost`:
+        axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards?cost=${input.value}&collectible=1`, {
+            headers: {
+              "X-Mashape-Key": `${mashapeKey}`
+            }
+          })
+          .then((response) => {
+            clearContent()
+            createSearchAgainButton()
+            let row = createRow()
+            for (let season in response.data) {
+              for (let i = 0; i < response.data[season].length; i++) {
+                let card = createCard(`${response.data[season][i].name}`, `${response.data[season][i].flavor}`, `${response.data[season][i].img}`, `${response.data[season][i].cardSet}`)
+                row.appendChild(card)
+                content.appendChild(row)
+              }
+            }
+            createSearchAgainButton()
+          })
+          .catch((error) => {
+            clearContent()
+            createSearchAgainButton()
+          });
+        break;
+      case `Race`:
+        axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards/races/${input.value}`, {
+            headers: {
+              "X-Mashape-Key": `${mashapeKey}`
+            }
+          })
+          .then((response) => {
+            clearContent()
+            createSearchAgainButton()
+            let row = createRow()
+            for (let i = 0; i < response.data.length; i++) {
+              let card = createCard(`${response.data[i].name}`, `${response.data[i].flavor}`, `${response.data[i].img}`, `${response.data[i].cardSet}`)
+              row.appendChild(card)
+              content.appendChild(row)
+            }
+            createSearchAgainButton()
+          })
+          .catch((error) => {
+            clearContent()
+            createSearchAgainButton()
+          });
+        break;
+      case `Health`:
+        axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards?health=${input.value}&collectible=1`, {
+            headers: {
+              "X-Mashape-Key": `${mashapeKey}`
+            }
+          })
+          .then((response) => {
+            clearContent()
+            createSearchAgainButton()
+            let row = createRow()
+            for (let season in response.data) {
+              for (let i = 0; i < response.data[season].length; i++) {
+                let card = createCard(`${response.data[season][i].name}`, `${response.data[season][i].flavor}`, `${response.data[season][i].img}`, `${response.data[season][i].cardSet}`)
+                row.appendChild(card)
+                content.appendChild(row)
+              }
+            }
+            createSearchAgainButton()
+          })
+          .catch((error) => {
+            clearContent()
+            createSearchAgainButton()
+          });
+        break;
+      default:
+    }
+  }
+
+  function createSearchAgainButton() {
+    let row = createRow()
+    let searchAgain = document.createElement(`button`)
+    searchAgain.addEventListener(`click`, (event) => {
+      clearContent()
+      buildSearch()
+    })
+    searchAgain.innerText = `Search Again`
+    row.appendChild(searchAgain)
+    content.appendChild(searchAgain)
   }
 
   function removeElement(id) {
