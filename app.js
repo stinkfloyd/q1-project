@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
   const data = JSON.parse(localStorage.getItem(`data`)) || {};
-  console.log(data);
   axios.get('https://cryptic-basin-89110.herokuapp.com/api.hearthstonejson.com/v1/25770/enUS/cards.collectible.json')
     .then((response) => {
+      console.log(response);
       localStorage.setItem(`data`, JSON.stringify(response.data))
-      runWebsite()
+      let loadText = document.getElementById(`loadText`).innerText = `Please select an option from the top`
     })
     .catch((error) => {});
 
