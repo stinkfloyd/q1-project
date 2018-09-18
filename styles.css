@@ -8,7 +8,14 @@ body {
 }
 
 select {
-  font-size: 25px;
+  text-align-last: center;
+}
+
+#error {
+  color: red;
+  text-align: center;
+  padding-top: 2em;
+  margin-bottom: -5em;
 }
 
 #content {
@@ -19,6 +26,23 @@ select {
   margin: 1em;
   width: 25em;
 }
+
+.form-control {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+form {
+  margin-left: 25%;
+  margin-right: 25%;
+  background-image: url(Background-Image3.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 3em;
+  border: 2px solid black;
+}
+
 
 .loadText {
   font-size: 52px;
@@ -45,7 +69,6 @@ select {
 .titleRow {
   text-align: center;
   border: 5px solid black;
-  margin-top: 2em;
   background-image: url(titleBackground.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -62,7 +85,7 @@ a {
   text-shadow: 5px 5px 5px black;
 }
 
-.navButtons button {
+.navButtons button, .btn {
   text-align: center;
   background-color: gold;
   font-family: warcraftFont;
@@ -79,6 +102,7 @@ a {
   color: gold;
   background: url(cardBackground.jpg);
   text-shadow: 2px 2px 2px #222222;
+  size: 25%
 }
 
 img {
@@ -91,7 +115,11 @@ img {
 }
 
 label {
-  color: white;
+  letter-spacing: 2px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: warcraftFont;
+  color: black;
   margin-right: 5px;
 }
 
