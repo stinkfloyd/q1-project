@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
-  const data = JSON.parse(localStorage.getItem(`data`)) || {};
+  let data = JSON.parse(localStorage.getItem(`data`)) || {};
   axios.get('https://cryptic-basin-89110.herokuapp.com/api.hearthstonejson.com/v1/25770/enUS/cards.collectible.json')
     .then((response) => {
       console.log(response);
       localStorage.setItem(`data`, JSON.stringify(response.data))
-      let loadText = document.getElementById(`loadText`).innerText = `Please select an option from the top`
+      data = JSON.parse(localStorage.getItem(`data`))
+      document.getElementById(`loadText`).innerText = `Please select an option from the top`
       searchButton.addEventListener(`click`, (event) => {
         clearContent()
         buildSearch()
@@ -221,20 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
     col.appendChild(link)
     return col
   }
-
-
-
-  // function createSearchAgainButton() {
-  //   let row = createRow()
-  //   let searchAgain = document.createElement(`button`)
-  //   searchAgain.addEventListener(`click`, (event) => {
-  //     clearContent()
-  //     buildSearch()
-  //   })
-  //   searchAgain.innerText = `Search Again`
-  //   row.appendChild(searchAgain)
-  //   content.appendChild(searchAgain)
-  // }
 
   function removeElement(id) {
     let element = document.getElementById(id);
