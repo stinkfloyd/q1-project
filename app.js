@@ -121,9 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
     filteredObject = parseForm(event)
     if (!Object.keys(filteredObject).length) {
       errorText.innerText = `Please enter at least one option`
+      return
     }
     let result = parseData(filteredObject)
-    console.log(result);
     displayCards(result)
   }
 
