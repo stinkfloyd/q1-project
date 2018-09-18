@@ -164,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         result[event.target[i].id] = event.target[i].value
       }
     }
-    result.collectible = true;
     return result
   }
 
