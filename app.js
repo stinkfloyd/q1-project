@@ -6,6 +6,31 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(response);
       localStorage.setItem(`data`, JSON.stringify(response.data))
       let loadText = document.getElementById(`loadText`).innerText = `Please select an option from the top`
+      searchButton.addEventListener(`click`, (event) => {
+        clearContent()
+        buildSearch()
+      })
+
+      cardBackButton.addEventListener(`click`, (event) => {
+        clearContent()
+        errorText.innerText = ``
+        axios.get('https://omgvamp-hearthstone-v1.p.mashape.com/cardbacks', {
+            headers: {
+              "X-Mashape-Key": `${mashapeKey}`
+            }
+          })
+          .then((response) => {
+            let row = createRow()
+            for (let i = 0; i < response.data.length; i++) {
+              let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
+              if (i !== 0 && i % 4 === 0)
+                row = createRow()
+              row.appendChild(card)
+              content.appendChild(row)
+            }
+          })
+          .catch((error) => {});
+      })
     })
     .catch((error) => {});
 
@@ -16,31 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
   let cardBackButton = document.getElementById(`cardBackButton`)
-  searchButton.addEventListener(`click`, (event) => {
-    clearContent()
-    buildSearch()
-  })
 
-  cardBackButton.addEventListener(`click`, (event) => {
-    clearContent()
-    errorText.innerText = ``
-    axios.get('https://omgvamp-hearthstone-v1.p.mashape.com/cardbacks', {
-        headers: {
-          "X-Mashape-Key": `${mashapeKey}`
-        }
-      })
-      .then((response) => {
-        let row = createRow()
-        for (let i = 0; i < response.data.length; i++) {
-          let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
-          if (i !== 0 && i % 4 === 0)
-            row = createRow()
-          row.appendChild(card)
-          content.appendChild(row)
-        }
-      })
-      .catch((error) => {});
-  })
 
 
   function clearContent() {
