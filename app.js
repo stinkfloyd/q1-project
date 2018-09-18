@@ -5,10 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   axios.get('https://cryptic-basin-89110.herokuapp.com/api.hearthstonejson.com/v1/25770/enUS/cards.collectible.json')
     .then((response) => {
       localStorage.setItem(`data`, JSON.stringify(response.data))
+      runWebsite()
     })
     .catch((error) => {});
 
-  let heroes = [`DRUID`, `HUNTER`, `MAGE`, `PALADIN`, `PRIEST`, `SHAMAN`, `WARLOCK`, `WARRIOR`]
+  let heroes = [`DRUID`, `HUNTER`, `MAGE`, `PALADIN`, `PRIEST`, `SHAMAN`, `WARLOCK`, `WARRIOR`, `NEUTRAL`]
   let options = [`Name`, `Attack Strength`, `Mana Cost`, `Hero`, `Health`]
   let filteredObject = {}
   let errorText = document.getElementById(`error`)
