@@ -47,6 +47,7 @@ form {
 .carouselItem{
   margin-bottom: : 5em;
 }
+
 .loadText {
   font-size: 52px;
   text-align: center;
@@ -78,6 +79,7 @@ form {
   color: gold;
   position: fixed;
   width: 100%;
+  z-index: 9999;
 }
 
 a {
