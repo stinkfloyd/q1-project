@@ -1,13 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
+
   let data = JSON.parse(localStorage.getItem(`data`)) || {};
+
   axios.get('https://cryptic-basin-89110.herokuapp.com/api.hearthstonejson.com/v1/25770/enUS/cards.collectible.json')
     .then((response) => {
-      console.log(response);
       localStorage.setItem(`data`, JSON.stringify(response.data))
+
       data = JSON.parse(localStorage.getItem(`data`))
+
       document.getElementById(`loadText`).innerText = `Please select an option from the top`
+
       searchButton.addEventListener(`click`, (event) => {
+        errorText.innerText = ``
         clearContent()
         buildSearch()
       })
@@ -37,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let heroes = [`DRUID`, `HUNTER`, `MAGE`, `PALADIN`, `PRIEST`, `SHAMAN`, `WARLOCK`, `WARRIOR`, `NEUTRAL`]
   let options = [`Name`, `Attack Strength`, `Mana Cost`, `Hero`, `Health`]
-  let filteredObject = {}
+  let filteredFormData = {}
   let errorText = document.getElementById(`error`)
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
@@ -82,12 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
           input.id = `attack`
           input.placeholder = `Enter (#) Attack Strength`
           input.type = `number`
+          input.min = 0
           break;
         case `Mana Cost`:
           label.innerText = `${option}`
           input.id = `cost`
           input.placeholder = `Enter (#) Mana Cost`
           input.type = `number`
+          input.min = 0
           break;
         case `Hero`:
           label.innerText = `${option}`
@@ -98,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
           input.id = `health`
           input.placeholder = `Enter (#) Health`
           input.type = `number`
+          input.min = 0
           break;
         default:
           input.type = `text`
@@ -118,20 +127,24 @@ document.addEventListener("DOMContentLoaded", () => {
   function submitEvent(event) {
     event.preventDefault()
     error.innerText = ``
-    filteredObject = parseForm(event)
-    if (!Object.keys(filteredObject).length) {
+    filteredFormData = parseForm(event)
+    if (!Object.keys(filteredFormData).length) {
       errorText.innerText = `Please enter at least one option`
       return
     }
-    let result = parseData(filteredObject)
+    let result = parseData(filteredFormData)
     displayCards(result)
   }
 
   function displayCards(result) {
     clearContent()
+    if (result.length === 0)
+    errorText.innerText = `No cards found.`
     let row = createRow()
     for (let i = 0; i < result.length; i++) {
-      let { id } = result[i]
+      let {
+        id
+      } = result[i]
       let image = document.createElement(`img`)
       image.classList.add(`card`)
       image.src = `https://art.hearthstonejson.com/v1/render/latest/enUS/512x/${id}.png`
