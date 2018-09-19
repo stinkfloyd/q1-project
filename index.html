@@ -39,12 +39,29 @@
       </ul>
       <!-- End of Title Row -->
     </div>
-    <div id="error"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <h5 class="modal-title" id="cardModalTitle"></h5>
+
+          <div class="modal-body" id="cardModalBody"></div>
+          <div class="modal-footer" id="cardModalFooter">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+      <!-- End of Modal -->
+    </div>
     <div class="row text-center" id="content">
       <p class="loadText" id="loadText">Loading, Please wait. . .</p>
       <p class="sword">\</p>
       <!-- End of Content -->
     </div>
+    <!-- Error Text appended here -->
+    <div id="error"></div>
     <!-- End of Container -->
   </div>
 

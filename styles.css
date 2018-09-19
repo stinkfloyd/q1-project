@@ -14,12 +14,13 @@ select {
 #error {
   color: red;
   text-align: center;
-  padding-top: 2em;
+  margin-top: -8em;
   margin-bottom: -5em;
 }
 
 #content {
   margin: 5em;
+  margin-top: 16em;
 }
 
 #inputField {
@@ -43,7 +44,9 @@ form {
   border: 2px solid black;
 }
 
-
+.carouselItem{
+  margin-bottom: : 5em;
+}
 .loadText {
   font-size: 52px;
   text-align: center;
@@ -73,6 +76,8 @@ form {
   background-repeat: no-repeat;
   background-size: cover;
   color: gold;
+  position: fixed;
+  width: 100%;
 }
 
 a {
@@ -93,6 +98,33 @@ a {
   color: black;
 }
 
+.modal {
+  text-align: center;
+}
+
+#cardModalFooter{
+  background-color: #222222;
+}
+
+#cardModalBody{
+  font-family: warcraftFont;
+  text-align: center;
+  font-size: 25px;
+}
+
+#cardModalTitle{
+  background-color: #222222;
+  font-family: warcraftFont;
+  font-size: 50px;
+  text-align: center;
+  color: gold;
+}
+
+#modalImage {
+  height: 512px;
+  width: 512px;
+}
+
 .card {
   border: 5px solid black;
   padding-top: 5px;
@@ -102,12 +134,13 @@ a {
   color: gold;
   background: url(cardBackground.jpg);
   text-shadow: 2px 2px 2px #222222;
-  size: 25%
+  size: 25%;
+  border-radius: 2em;
 }
 
 img {
   width: 30%;
-  height: 30%;
+  height: 50%;
 }
 
 .card h4 {

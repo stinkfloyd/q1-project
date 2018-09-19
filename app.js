@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
 
   let data = JSON.parse(localStorage.getItem(`data`)) || {};
@@ -48,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
   let cardBackButton = document.getElementById(`cardBackButton`)
+  let cardModalTitle = document.getElementById(`cardModalTitle`)
+  let cardModalBody = document.getElementById(`cardModalBody`)
 
 
 
@@ -139,8 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function displayCards(result) {
     clearContent()
     if (result.length === 0)
-    errorText.innerText = `No cards found.`
+      errorText.innerText = `No cards found.`
     let row = createRow()
+    let modalAnchor = document.createElement(`a`)
+    modalAnchor.href = `#cardModal`
+    modalAnchor.role = `button`
+    modalAnchor.setAttribute(`data-toggle`, `modal`)
     for (let i = 0; i < result.length; i++) {
       let {
         id
@@ -148,9 +153,27 @@ document.addEventListener("DOMContentLoaded", () => {
       let image = document.createElement(`img`)
       image.classList.add(`card`)
       image.src = `https://art.hearthstonejson.com/v1/render/latest/enUS/512x/${id}.png`
-      row.appendChild(image)
+      image.id = `${id}`
+      modalAnchor.appendChild(image)
+      modalAnchor.addEventListener(`click`, modalClicked)
+      row.appendChild(modalAnchor)
     }
     content.appendChild(row)
+  }
+
+  function modalClicked(event) {
+    while (cardModalBody.hasChildNodes()) {
+      cardModalBody.removeChild(cardModalBody.childNodes[0])
+    }
+    let card = data.filter(card => card.id === event.target.id)
+    cardModalTitle.innerText = card[0].name
+    let image = document.createElement(`img`)
+    image.src = `https://art.hearthstonejson.com/v1/512x/${event.target.id}.jpg`
+    image.id = `modalImage`
+    cardModalBody.appendChild(image)
+    let cardText = document.createElement(`p`)
+    cardText.innerText = `Artist: ${card[0].artist}`
+    cardModalBody.appendChild(cardText)
   }
 
   function parseData(filteredInput) {
@@ -233,11 +256,6 @@ document.addEventListener("DOMContentLoaded", () => {
     link.innerText = `Back to Top`
     col.appendChild(link)
     return col
-  }
-
-  function removeElement(id) {
-    let element = document.getElementById(id);
-    return element.parentNode.removeChild(element);
   }
 
   function createRow() {
