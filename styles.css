@@ -15,7 +15,7 @@ select {
   color: red;
   text-align: center;
   margin-top: -8em;
-  margin-bottom: -5em;
+  padding-top: 5em;
 }
 
 #content {
@@ -36,12 +36,15 @@ select {
 form {
   margin-left: 25%;
   margin-right: 25%;
+  margin-top: -5%;
+  margin-bottom: -5em;
   background-image: url(Background-Image3.jpg);
   background-size: contain;
   background-repeat: no-repeat;
   background-size: 100%;
   padding: 3em;
   border: 2px solid black;
+  overflow: hidden;
 }
 
 .carouselItem{
@@ -82,6 +85,12 @@ form {
   z-index: 9999;
 }
 
+#moreInfoText{
+  font-family: warcraftFont;
+  color: gold;
+  font-size: 25px;
+}
+
 a {
   color: white;
 }
@@ -101,6 +110,7 @@ a {
 }
 
 .modal {
+  z-index: 999999;
   text-align: center;
 }
 

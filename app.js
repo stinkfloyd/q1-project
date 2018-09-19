@@ -139,8 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displayCards(result) {
     clearContent()
-    if (result.length === 0)
-      errorText.innerText = `No cards found.`
+    if (result.length === 0) {
+      errorText.innerText = `No cards found. Please Search Again`
+      return
+    }
+    let moreInfoText = document.createElement(`div`)
+    moreInfoText.id = `moreInfoText`
+    moreInfoText.innerText = `Click a card for more Information`
+    content.appendChild(moreInfoText)
     let row = createRow()
     let modalAnchor = document.createElement(`a`)
     modalAnchor.href = `#cardModal`
