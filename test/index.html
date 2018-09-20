@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mocha.css" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Custom -->
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <a name="top"></a>
+    <div class="container-fluid">
+      <div class="row titleRow" id="titleRow">
+        <div class="col-sm-12" id="titleText">
+          <h1>Hearthstone Card Finder</h1>
+        </div>
+        <!-- Next line left blank to push buttons right -->
+        <div class="col-sm-6"></div>
+        <ul class="list-group" id="navButtons">
+          <div class="col-sm-3 navButtons" id="searchCol">
+            <button type="button" id ="searchButton" class="btn btn-primary ">Search</button>
+          </div>
+          <div class="col-sm-3 navButtons" id="cardBackCol">
+            <button type="button" id ="cardBackButton" class="btn btn-primary">Card Back Gallery</button>
+          </div>
+        </ul>
+        <!-- End of Title Row -->
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content" id="modalContent">
+
+            <h5 class="modal-title" id="cardModalTitle"></h5>
+
+            <div class="modal-body" id="cardModalBody"></div>
+            <div class="modal-footer" id="cardModalFooter">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+        <!-- End of Modal -->
+      </div>
+      <!-- Content -->
+      <div class="row text-center" id="content">
+        <p class="loadText" id="loadText">Loading, Please wait. . .</p>
+        <p class="sword">\</p>
+        <!-- End of Content -->
+      </div>
+      <!-- Error Text appended here -->
+      <div class="error" id="error"></div>
+      <!-- End of Container -->
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" charset="utf-8"></script>
+    <!-- Custom script -->
+    <script src="../app.js"></script>
+    <script src="mocha.js"></script>
+    <div id="mocha"></div>
+    <script>mocha.setup('bdd');</script>
+    <script src="chai.js"></script>
+    <script src="chai-dom.js"></script>
+    <script src="tests.js"></script>
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>

@@ -168,6 +168,11 @@ a {
   text-shadow: 2px 2px 2px #222222;
   size: 25%;
   border-radius: 2em;
+  height: 700px;
+}
+
+.card.resize {
+  height: auto;
 }
 
 img {
@@ -175,8 +180,13 @@ img {
   height: 50%;
 }
 
+#cardImage {
+  width: 50%;
+}
 .card h4 {
-  font-size: 75px;
+  font-size: 50px;
+  color: black;
+  text-shadow: 2px 2px 2px gold;
 }
 
 label {
@@ -190,9 +200,17 @@ label {
 
 footer {
   font-size: 25px;
+  color: black;
+  text-shadow: 2px 2px 2px gold;
 }
 
 .card-text {
-  font-size: 40px;
+  font-size: 25px;
   font-weight: lighter;
+  color: black;
+  text-shadow: 2px 2px 2px gold;
+}
+
+.card #modal {
+  size: auto;
 }

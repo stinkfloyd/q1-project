@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let row = createRow()
             for (let i = 0; i < response.data.length; i++) {
               let cardBack = createCardBack(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
-              if (i !== 0 && i % 4 === 0)
+              if (i !== 0 && i % 3 === 0)
                 row = createRow()
               row.appendChild(cardBack)
               content.appendChild(row)
@@ -83,22 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
         case `Name`:
           label.innerText = `${option}`
           input.id = `name`
-          input.placeholder = `Enter Card Name`
+          input.placeholder = `Full or Partial Card Name`
           input.autofocus = true
           break;
         case `Attack Strength`:
           label.innerText = `${option}`
           input.id = `attack`
-          input.placeholder = `Enter (#) Attack Strength`
+          input.placeholder = `Enter (0-20) Attack Strength`
           input.type = `number`
           input.min = 0
+          input.max = 20
           break;
         case `Mana Cost`:
           label.innerText = `${option}`
           input.id = `cost`
-          input.placeholder = `Enter (#) Mana Cost`
+          input.placeholder = `Enter (0-20) Mana Cost`
           input.type = `number`
           input.min = 0
+          input.max = 20
           break;
         case `Hero`:
           label.innerText = `${option}`
@@ -107,9 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
         case `Health`:
           label.innerText = `${option}`
           input.id = `health`
-          input.placeholder = `Enter (#) Health`
+          input.placeholder = `Enter (0-30) Health`
           input.type = `number`
           input.min = 0
+          input.max = 30
           break;
         default:
           input.type = `text`
@@ -162,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
       image.classList.add(`card`)
       image.src = `https://art.hearthstonejson.com/v1/render/latest/enUS/512x/${id}.png`
       image.id = `${id}`
+      image.classList.add(`resize`)
       modalAnchor.appendChild(image)
       modalAnchor.addEventListener(`click`, modalClicked)
       row.appendChild(modalAnchor)
@@ -232,7 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // Returns a 12 column wide bootstrap card, The image of the card back being the imgSrc provided with included text on the card back title, the flavor text associated with that card back, and the tasks needed to unlock.
   function createCardBack(title, flavorText, imgSrc, howToGet) {
-    let col = createCol(12)
+    let col = createCol(4)
+    col.id = title
     let card = document.createElement(`div`)
     card.classList.add(`card`)
     let cardBody = document.createElement(`div`)
@@ -240,8 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let cardImage = document.createElement(`img`)
     cardImage.onerror = () => {
       col.style.display = `none`
-      col.classList.add(`remove`)
+      document.getElementById(title).remove()
     }
+    cardImage.id = `cardImage`
     cardImage.classList.add(`card-image`)
     cardImage.src = imgSrc
     cardBody.appendChild(cardImage)
