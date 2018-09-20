@@ -114,12 +114,17 @@ a {
   text-align: center;
 }
 
+#cardText {
+  line-height: 1em;
+}
+
 #cardModalFooter{
   background-color: #222222;
 }
 
 #cardModalBody{
   font-family: warcraftFont;
+  margin-bottom: none;
   text-align: center;
   font-size: 25px;
 }
@@ -133,8 +138,8 @@ a {
 }
 
 #modalImage {
-  height: 512px;
-  width: 512px;
+  height: 480px;
+  width: 480px;
 }
 
 .card {

@@ -178,7 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
     image.id = `modalImage`
     cardModalBody.appendChild(image)
     let cardText = document.createElement(`p`)
-    cardText.innerText = `Artist: ${card[0].artist}`
+    cardText.id = `cardText`
+    cardText.innerText = `${card[0].flavor}\nArtist: ${card[0].artist}`
     cardModalBody.appendChild(cardText)
   }
 
