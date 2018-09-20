@@ -1,22 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // API Key
   const mashapeKey = `oaQ37rOdEymshQuTchX0YcpHvg57p1rIczVjsn1LeIL3QWibs8`
-
-  let data = JSON.parse(localStorage.getItem(`data`)) || {};
-
+  // All the searchable card classes
+  const HEROES = [`DRUID`, `HUNTER`, `MAGE`, `PALADIN`, `PRIEST`, `SHAMAN`, `WARLOCK`, `WARRIOR`, `NEUTRAL`]
+  // ALl the availible search options
+  const OPTIONS = [`Name`, `Attack Strength`, `Mana Cost`, `Hero`, `Health`]
+  // Will store the stringified response of the following get call.
+  let data = {};
+  // API call that responds with data for every card in the game.
   axios.get('https://cryptic-basin-89110.herokuapp.com/api.hearthstonejson.com/v1/25770/enUS/cards.collectible.json')
     .then((response) => {
+      // Sets the GET response to local storage to parse and work with from there. Since the data returned is typically static and updates a few times a year, one call and storing the data would be overall much more efficient. Since it takes a bit of random time before the data is stored in the local storage, I have waited until after it is set to change the text displayed in the #content element and add event listeners, making it easy to understand things are loading.
       localStorage.setItem(`data`, JSON.stringify(response.data))
-
+      // Parses the data in the local storage.
       data = JSON.parse(localStorage.getItem(`data`))
-
+      // Replaces default text in the #loadText element, letting user know the app is functional.
       document.getElementById(`loadText`).innerText = `Please select an option from the top`
-
-      searchButton.addEventListener(`click`, (event) => {
-        errorText.innerText = ``
-        clearContent()
-        buildSearch()
-      })
-
+      // On click event, call function buildSearch(event).
+      searchButton.addEventListener(`click`, buildSearch)
+      // On click event, clears the #content element and removes any error text. An API call is made to gather the image links of all the availible card backs in the game. When GET call returns, the corresponding data is used to create card backs and append them the #content element.
       cardBackButton.addEventListener(`click`, (event) => {
         clearContent()
         errorText.innerText = ``
@@ -28,10 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
           .then((response) => {
             let row = createRow()
             for (let i = 0; i < response.data.length; i++) {
-              let card = createCard(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
+              let cardBack = createCardBack(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
               if (i !== 0 && i % 4 === 0)
                 row = createRow()
-              row.appendChild(card)
+              row.appendChild(cardBack)
               content.appendChild(row)
             }
           })
@@ -40,9 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((error) => {});
 
-  let heroes = [`DRUID`, `HUNTER`, `MAGE`, `PALADIN`, `PRIEST`, `SHAMAN`, `WARLOCK`, `WARRIOR`, `NEUTRAL`]
-  let options = [`Name`, `Attack Strength`, `Mana Cost`, `Hero`, `Health`]
-  let filteredFormData = {}
+
+  // Static HTML elements
   let errorText = document.getElementById(`error`)
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
@@ -51,26 +52,27 @@ document.addEventListener("DOMContentLoaded", () => {
   let cardModalBody = document.getElementById(`cardModalBody`)
 
 
-
+  // Clears all child elements in the #content element.
   function clearContent() {
     while (content.hasChildNodes()) {
       content.removeChild(content.childNodes[0])
     }
   }
-
+  // Clears the #content element, and then calls the function that builds the input form.
   function buildSearch() {
     clearContent()
     createInputForm()
   }
-
+  // Builds and displays the form used for search parameters for the cards to be displayed in the #content element.
   function createInputForm() {
+    errorText.innerText = ``
     if (document.getElementById(`searchForm`))
       removeElement(`searchForm`)
     let form = document.createElement(`form`)
     let formGroup = document.createElement(`div`)
     formGroup.classList.add(`form-group`)
     formGroup.id = `searchForm`
-    for (let option of options) {
+    for (let option of OPTIONS) {
       let row = createRow()
       let label = document.createElement(`label`)
       let input = document.createElement(`input`)
@@ -124,20 +126,20 @@ document.addEventListener("DOMContentLoaded", () => {
     form.appendChild(formGroup)
     content.appendChild(form)
   }
-
+  // Verifies that at least one field has a value. If true, then it parses the input fields containing a value, then calls a function to find and a function to display the results that match the search form parameters given.
   function submitEvent(event) {
     event.preventDefault()
     error.innerText = ``
-    filteredFormData = parseForm(event)
-    if (!Object.keys(filteredFormData).length) {
+    formData = parseForm(event)
+    if (!Object.keys(formData).length) {
       errorText.innerText = `Please enter at least one option`
       return
     }
-    let result = parseData(filteredFormData)
-    displayCards(result)
+    let result = findResult(formData)
+    displayResult(result)
   }
-
-  function displayCards(result) {
+  // Clears the #content element, then if result.length is 0, no cards were found to display and message is displayed. If results contains data, Informational title is created to display additional functionality, followed by game image renders of the card. The image itself is a link to activate a modal that displays that card's full art.
+  function displayResult(result) {
     clearContent()
     if (result.length === 0) {
       errorText.innerText = `No cards found. Please Search Again`
@@ -166,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     content.appendChild(row)
   }
-
+  // Clears the information in the #cardModalBody element, then appends the correct information to the same element before the modal is displayed
   function modalClicked(event) {
     while (cardModalBody.hasChildNodes()) {
       cardModalBody.removeChild(cardModalBody.childNodes[0])
@@ -182,24 +184,24 @@ document.addEventListener("DOMContentLoaded", () => {
     cardText.innerText = `${card[0].flavor}\nArtist: ${card[0].artist}`
     cardModalBody.appendChild(cardText)
   }
-
-  function parseData(filteredInput) {
-    return data.filter(card => matches(card, filteredInput))
+  // Returns the data needed to display the correct cards based on the formData object that was gathered from the input fields.
+  function findResult(formData) {
+    return data.filter(card => matches(card, formData))
   }
-
-  function matches(card, filteredInput) {
+  // Checks the keys in the formData object and their values and only returns true when all pairs match their key/value pair in the data object
+  function matches(card, formData) {
     let result = true
-    for (let key of Object.keys(filteredInput)) {
+    for (let key of Object.keys(formData)) {
       // if key is "name field"
       if (key !== `name`) {
-        result &= card[key] == filteredInput[key]
+        result &= card[key] == formData[key]
       } else {
-        result &= card[key].toLowerCase().includes(filteredInput[key].toLowerCase())
+        result &= card[key].toLowerCase().includes(formData[key].toLowerCase())
       }
     }
     return result
   }
-
+  // Returns an object where the form's input fields and their value are made into key/value pairs that correspond the correct key name and value pattern used in the data object
   function parseForm(event) {
     let result = {}
     for (let i = 0; i < event.target.length; i++) {
@@ -209,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return result
   }
-
+  // Returns a HTML input element of type `select` that contains all the strings in the const HEROES array as `options`.
   function createHeroSelect() {
     let input = document.createElement(`select`)
     input.classList.add(`form-control`)
@@ -220,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectOption.disabled = true;
     selectOption.selected = true;
     input.add(selectOption)
-    for (hero of heroes) {
+    for (hero of HEROES) {
       selectOption = document.createElement(`option`)
       selectOption.text = `${hero}`
       selectOption.value = `${hero}`
@@ -228,8 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return input
   }
-
-  function createCard(title, flavorText, imgSrc, howToGet) {
+  // Returns a 12 column wide bootstrap card, The image of the card back being the imgSrc provided with included text on the card back title, the flavor text associated with that card back, and the tasks needed to unlock.
+  function createCardBack(title, flavorText, imgSrc, howToGet) {
     let col = createCol(12)
     let card = document.createElement(`div`)
     card.classList.add(`card`)
@@ -264,13 +266,13 @@ document.addEventListener("DOMContentLoaded", () => {
     col.appendChild(link)
     return col
   }
-
+  // Simple function that returns a bootstrap row.
   function createRow() {
     let row = document.createElement(`div`)
     row.classList.add(`row`)
     return row
   }
-
+  // Simple function that returns a bootstrap column that is howManyCols wide
   function createCol(howManyCols) {
     let col = document.createElement(`div`)
     col.classList.add(`col-sm-${howManyCols}`)

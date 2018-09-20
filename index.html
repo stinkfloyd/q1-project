@@ -10,30 +10,24 @@
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Custom -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
   <a name="top"></a>
   <div class="container-fluid">
     <div class="row titleRow" id="titleRow">
-      <div class="col-sm-12">
+      <div class="col-sm-12" id="titleText">
         <h1>Hearthstone Card Finder</h1>
       </div>
       <!-- Next line left blank to push buttons right -->
       <div class="col-sm-6"></div>
       <ul class="list-group" id="navButtons">
-        <div class="col-sm-3 navButtons">
+        <div class="col-sm-3 navButtons" id="searchCol">
           <button type="button" id ="searchButton" class="btn btn-primary ">Search</button>
         </div>
-        <div class="col-sm-3 navButtons">
+        <div class="col-sm-3 navButtons" id="cardBackCol">
           <button type="button" id ="cardBackButton" class="btn btn-primary">Card Back Gallery</button>
         </div>
       </ul>
@@ -55,6 +49,7 @@
       </div>
       <!-- End of Modal -->
     </div>
+    <!-- Content -->
     <div class="row text-center" id="content">
       <p class="loadText" id="loadText">Loading, Please wait. . .</p>
       <p class="sword">\</p>
@@ -70,6 +65,7 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" charset="utf-8"></script>
+  <!-- Custom script -->
   <script src="app.js" charset="utf-8"></script>
 </body>
 
