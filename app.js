@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           })
           .then((response) => {
+            let moreInfoText = document.createElement(`div`)
+            moreInfoText.id = `moreInfoText`
+            moreInfoText.innerText = `Click a card back to zoom in`
+            content.appendChild(moreInfoText)
             let row = createRow()
             for (let i = 0; i < response.data.length; i++) {
               let cardBack = createCardBack(`${response.data[i].name}`, `${response.data[i].description}`, `${response.data[i].imgAnimated}`, `${response.data[i].howToGet}`)
