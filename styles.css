@@ -163,6 +163,12 @@ a {
   text-shadow: 5px 5px 5px black;
 }
 
+h4 {
+  font-size: 50px;
+  color: black;
+  text-shadow: 2px 2px 2px gold;
+}
+
 .navButtons button, .btn {
   text-align: center;
   background-color: gold;
