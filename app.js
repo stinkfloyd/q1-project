@@ -303,10 +303,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return col
   }
 
-  function cardBackModalClicked() {
+  function cardBackModalClicked(event) {
     while (cardModalBody.hasChildNodes()) {
       cardModalBody.removeChild(cardModalBody.childNodes[0])
     }
+    document.getElementById(`cardModalTitle`).innerText = ``
     let image = document.createElement(`img`)
     image.classList.add(`card-image`)
     image.src = event.target.id
