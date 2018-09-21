@@ -60,9 +60,19 @@ iframe {
   display: none;
 }
 
+#cardBackModalImage {
+  height: auto;
+  width: 512px;
+}
+
 .form-control {
   margin-bottom: 1em;
   text-align: center;
+}
+
+.card-image {
+  height: auto;
+  width: 256px;
 }
 
 form {
@@ -126,6 +136,20 @@ a {
   color: white;
 }
 
+.card-body{
+  background: url(cardBackground.jpg)
+  border: 5px solid black;
+  padding-top: 5px;
+  padding: 5px;
+  font-family: warcraftFont;
+  margin: 5px;
+  color: gold;
+  background: url(cardBackground.jpg);
+  text-shadow: 2px 2px 2px #222222;
+  size: 25%;
+  border-radius: 2em;
+  height: 750px;
+}
 .jumbotron h1 {
   font-family: warcraftFont;
   color: gold;

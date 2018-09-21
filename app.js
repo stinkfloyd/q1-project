@@ -265,15 +265,22 @@ document.addEventListener("DOMContentLoaded", () => {
     card.classList.add(`card`)
     let cardBody = document.createElement(`div`)
     cardBody.classList.add(`card-body`)
+    let modalAnchor = document.createElement(`a`)
+    modalAnchor.id = imgSrc
+    modalAnchor.href = `#cardModal`
+    modalAnchor.role = `button`
+    modalAnchor.setAttribute(`data-toggle`, `modal`)
     let cardImage = document.createElement(`img`)
     cardImage.onerror = () => {
       col.style.display = `none`
       document.getElementById(title).remove()
     }
-    cardImage.id = `cardImage`
+    cardImage.id = `${imgSrc}`
     cardImage.classList.add(`card-image`)
     cardImage.src = imgSrc
-    cardBody.appendChild(cardImage)
+    modalAnchor.appendChild(cardImage)
+    modalAnchor.addEventListener(`click`, cardBackModalClicked)
+    cardBody.appendChild(modalAnchor)
     let cardTitle = document.createElement(`h4`)
     cardTitle.innerText = title
     cardTitle.classList.add(`card-title`)
@@ -288,13 +295,26 @@ document.addEventListener("DOMContentLoaded", () => {
     footer.innerText = `How to get: ${howToGet}`
     cardBody.appendChild(footer)
     card.appendChild(cardBody)
-    col.appendChild(card)
+    col.appendChild(cardBody)
     let link = document.createElement(`a`)
     link.href = `#top`
     link.innerText = `Back to Top`
     col.appendChild(link)
     return col
   }
+
+  function cardBackModalClicked() {
+    while (cardModalBody.hasChildNodes()) {
+      cardModalBody.removeChild(cardModalBody.childNodes[0])
+    }
+    let image = document.createElement(`img`)
+    image.classList.add(`card-image`)
+    image.src = event.target.id
+    // image.src = event.target.id
+    image.id = `cardBackModalImage`
+    cardModalBody.appendChild(image)
+  }
+
   // Simple function that returns a bootstrap row.
   function createRow() {
     let row = document.createElement(`div`)
