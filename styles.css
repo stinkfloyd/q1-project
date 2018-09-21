@@ -15,8 +15,19 @@ select {
   margin-top: 15em;
 }
 
+#centerButtons {
+  margin-left: 25%;
+  margin-right:25%;
+}
+
+#hearthSimButtons {
+  margin-left: 25%;
+  margin-right:25%;
+}
+
 .jumbotron h1 {
   font-family: warcraftFont;
+  text-align: center;
 }
 
 #searchButton {
