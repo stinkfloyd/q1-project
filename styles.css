@@ -69,6 +69,11 @@ iframe {
 
 #jumbotron {
   display: none;
+  background-image: url(cardBackground.jpg);
+}
+
+#cardme {
+  background-image: url(cardBackground.jpg);
 }
 
 #cardBackModalImage {
@@ -79,6 +84,11 @@ iframe {
 .form-control {
   margin-bottom: 1em;
   text-align: center;
+}
+
+#jumbotron p {
+  font-weight: normal;
+  color: black;
 }
 
 .card-image {

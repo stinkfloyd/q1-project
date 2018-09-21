@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         case `Name`:
           label.innerText = `${option}`
           input.id = `name`
+          input.autocomplete = `off`
           input.placeholder = `Full or Partial Card Name`
           input.autofocus = true
           break;
