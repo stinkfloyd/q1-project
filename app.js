@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById(`loadText`).innerText = `Please select an option from the top`
       // On click event, call function buildSearch(event).
       searchButton.addEventListener(`click`, buildSearch)
+      // On click event, call function buildAbout(event).
+      aboutButton.addEventListener(`click`, buildAbout)
       // On click event, clears the #content element and removes any error text. An API call is made to gather the image links of all the availible card backs in the game. When GET call returns, the corresponding data is used to create card backs and append them the #content element.
       cardBackButton.addEventListener(`click`, (event) => {
         clearContent()
@@ -47,13 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let errorText = document.getElementById(`error`)
   let content = document.getElementById(`content`)
   let searchButton = document.getElementById(`searchButton`)
+  let homeButton = document.getElementById(`homeButton`)
   let cardBackButton = document.getElementById(`cardBackButton`)
   let cardModalTitle = document.getElementById(`cardModalTitle`)
   let cardModalBody = document.getElementById(`cardModalBody`)
+  let jumbotron = document.getElementById(`jumbotron`)
 
 
   // Clears all child elements in the #content element.
   function clearContent() {
+    if (jumbotron.style.display === "block") {
+        jumbotron.style.display = "none";
+    }
     while (content.hasChildNodes()) {
       content.removeChild(content.childNodes[0])
     }
@@ -62,6 +69,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildSearch() {
     clearContent()
     createInputForm()
+  }
+
+  // Clears the #content element, and then calls the function that builds the About page.
+  function buildAbout() {
+    clearContent()
+    createAboutPage()
+  }
+
+  function createAboutPage() {
+    errorText.innerText = ``
+
+    if (jumbotron.style.display === `` || "none") {
+      jumbotron.style.display = "block"
+    } else {
+      console.log(jumbotron.style.display);
+    }
   }
   // Builds and displays the form used for search parameters for the cards to be displayed in the #content element.
   function createInputForm() {

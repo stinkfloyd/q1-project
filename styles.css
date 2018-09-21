@@ -11,7 +11,20 @@ select {
   text-align-last: center;
 }
 
+.jumbotron {
+  margin-top: 15em;
+}
+
+.jumbotron h1 {
+  font-family: warcraftFont;
+}
+
 #searchButton {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#aboutButton {
   width: 100%;
   margin-bottom: 5px;
 }
@@ -19,6 +32,11 @@ select {
 #cardBackButton {
   width: 100%;
   margin-bottom: 10px;
+}
+
+iframe {
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 #error {
@@ -36,6 +54,10 @@ select {
 #inputField {
   margin: 1em;
   width: 25em;
+}
+
+#jumbotron {
+  display: none;
 }
 
 .form-control {
@@ -105,6 +127,13 @@ a {
   color: white;
 }
 
+.jumbotron h1 {
+  font-family: warcraftFont;
+  color: gold;
+  font-size: 75px;
+  text-shadow: 5px 5px 5px black;
+}
+
 .titleRow h1 {
   font-family: warcraftFont;
   font-size: 75px;
@@ -126,6 +155,11 @@ a {
 
 #cardText {
   line-height: 1em;
+  text-align: center;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 25px;
+  text-shadow: none;
+  color: black;
 }
 
 #cardModalFooter{
@@ -168,7 +202,7 @@ a {
   text-shadow: 2px 2px 2px #222222;
   size: 25%;
   border-radius: 2em;
-  height: 700px;
+  height: 750px;
 }
 
 .card.resize {
@@ -199,16 +233,21 @@ label {
 }
 
 footer {
+
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
   font-size: 25px;
+  text-shadow: none;
   color: black;
-  text-shadow: 2px 2px 2px gold;
+
 }
 
 .card-text {
+  text-align: center;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 25px;
-  font-weight: lighter;
+  text-shadow: none;
   color: black;
-  text-shadow: 2px 2px 2px gold;
 }
 
 .card #modal {
